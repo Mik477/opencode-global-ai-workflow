@@ -1,0 +1,11 @@
+{
+  "name": "opencode-diagnostics",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./server": "./server.ts"
+  },
+  "engines": {
+    "opencode": ">=1.18.5"
+  }
+}

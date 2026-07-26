@@ -1,0 +1,8 @@
+{
+  "commandline": "%SystemRoot%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoExit -Command opencode --auto",
+  "guid": "{01aed5ce-8fe2-4c58-a48c-7a62e5de2668}",
+  "hidden": false,
+  "name": "OpenCode",
+  "startingDirectory": "%USERPROFILE%",
+  "suppressApplicationTitle": false
+}

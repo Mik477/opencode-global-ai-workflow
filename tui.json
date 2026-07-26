@@ -1,0 +1,12 @@
+{
+  "$schema": "https://opencode.ai/tui.json",
+  "attention": {
+    "enabled": false,
+    "notifications": false,
+    "sound": false
+  },
+  "plugin": [
+    "./plugins/terminal-title-clean",
+    "./plugins/session-progress"
+  ]
+}

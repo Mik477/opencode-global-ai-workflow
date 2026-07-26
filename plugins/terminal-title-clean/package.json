@@ -1,0 +1,12 @@
+{
+  "name": "opencode-terminal-title-clean",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./server": "./server.ts",
+    "./tui": "./tui.ts"
+  },
+  "engines": {
+    "opencode": ">=1.18.5"
+  }
+}

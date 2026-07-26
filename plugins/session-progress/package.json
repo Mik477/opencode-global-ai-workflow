@@ -1,0 +1,12 @@
+{
+  "name": "opencode-session-progress",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./server": "./server.ts",
+    "./tui": "./tui.tsx"
+  },
+  "engines": {
+    "opencode": ">=1.18.5"
+  }
+}
