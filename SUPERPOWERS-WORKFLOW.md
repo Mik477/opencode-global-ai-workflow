@@ -1,82 +1,86 @@
-# Adaptive Superpowers Workflow
+# Focused Delivery Workflow
 
-These are explicit user workflow instructions. They take precedence over conflicting Superpowers skill defaults.
+These are explicit global user instructions. They override conflicting package-skill defaults.
 
-## Default Trigger And Discovery
+## Applicability
 
-- Apply this policy whenever the user requests execution, including feature work, bug fixes, configuration, research, analysis, searches, reports, documents, and other artifact creation. `/autofeature` is optional and is not required to activate it. If the user explicitly requests only discussion, brainstorming, advice, or a plan, do not start implementation.
-- First inspect project instructions, the relevant workspace, available inputs, and source context. Before the first interruption, identify all foreseeable material questions. Ask independent questions together in one concise batch; ask a later follow-up only when an earlier answer genuinely reveals a new dependent question.
-- Resolve routine execution details from the accepted request, available evidence, domain or repository conventions, and safe reversible judgment. Ask about purpose, behavior, UX, constraints, output requirements, or success criteria only when the answer could materially change the result.
-- Offer outcome or design approaches only when there is a meaningful choice requiring user preference. Choose work methods internally, including tools, APIs, sources, search strategy, decomposition, plan structure, file organization, verification steps, and delegation. Do not present these methods for approval.
-- When a material outcome or design choice exists, present one cohesive proposal scaled to the work and request one approval. Do not ask for approval after each section. A clear request with no unresolved material choice is already sufficient authorization; do not manufacture a design gate.
+- For substantive feature, bug-fix, migration, configuration, deployment, or other multi-step artifact work, invoke `focused-delivery` before planning or implementation.
+- Substantive work always pauses once for combined approval of the goal contract, cohesive design, and comprehensive plan, even when the request appears technically determinate.
+- Trivial questions, read-only lookups, discussion-only requests, and small reversible edits do not require the formal contract. If the user explicitly requests only analysis, advice, brainstorming, or a plan, do not implement.
+- `/autofeature` is optional. Normal prompts activate the same workflow.
 
-## Approval And Handoff Contract
+## Discovery
 
-- Treat the accepted request or one material outcome/design approval as the only routine user-facing approval surface. Then write any useful design record, self-review it, create any required detailed plan, choose the execution method internally, and start the requested work automatically in the same session.
-- Do not ask the user to approve how the work will be performed, review a written specification or implementation plan, choose between inline and subagent-driven execution, confirm routine task boundaries, approve reversible choices, or say whether work should continue. Stop only for a material decision or blocker defined below.
-- Invoke relevant skills, but adapt their procedures to this contract. This section explicitly replaces conflicting package-skill steps that require a one-question-per-message interview when questions can be batched, every task to have a design gate, section-by-section design approvals, a second written-spec approval, an execution-mode question, compulsory commits, an unsolicited visual-companion offer, or automatic per-task and final reviewer dispatches.
-- Keep useful skill methods such as discovery, self-review, planning, test discipline, debugging, worktree safety, and evidence-based verification. Never follow a skill's commit instruction because the no-commit rule below requires explicit user authorization.
+- Inspect project instructions, relevant code, documentation, tests, recent changes, runtime configuration, and supplied evidence before proposing a solution.
+- Inventory all foreseeable questions whose answers could materially change purpose, behavior, UX, compatibility, data handling, supported assumptions, or acceptance. Ask independent questions in one concise batch. Ask a later question only when an answer reveals a genuinely new dependency.
+- Resolve routine methods from the request, repository evidence, conventions, and safe reversible judgment. Present alternatives only when a material user preference exists.
 
-## Workspace Isolation
+## Single Approval Contract
 
-- Use a Git worktree by default for substantive feature work in a Git repository.
-- Work in place when the directory is not a Git repository, the change is configuration outside a repository, the user explicitly requests in-place work, or isolation would break a required local environment. State the applicable exception.
-- Do not create commits, push, publish, deploy, open pull requests, or release unless the user explicitly requests that action.
+Present one cohesive analysis, design, and implementation plan with a goal contract of at most ten labeled lines:
 
-## Durable Detailed Plan
+```text
+Goal:
+User-visible outcome:
+Acceptance criterion AC-1:
+Acceptance criterion AC-2:
+Acceptance criterion AC-3:
+Non-goals:
+Supported operating assumptions:
+Verification boundary:
+Review boundary:
+Browser handoff condition:
+```
 
-- After discovery settles the design, write a durable detailed plan under `docs/superpowers/plans/` for substantive multi-step work.
-- Include exact file and verification references useful for execution, delegation, scope control, and recovery after compaction. The user is not expected to monitor or approve the plan routinely.
-- Keep the plan stable through small implementation discoveries. Update it when scope or architecture changes materially.
+Vary the acceptance count when needed but keep the contract within ten lines. Request one combined approval. After approval, save useful design and plan records, self-review them once, choose work methods internally, and implement autonomously.
 
-## Dynamic Execution Tree
+Do not request section approvals, a second written-spec review, a separate plan approval, an execution-mode choice, routine task approval, permission to continue, or compulsory commits. Ask again only when an unexpected discovery creates a material product, security, compatibility, data-loss, cost, or scope decision outside the approved contract.
 
-- Use `task_create`, `task_get`, `task_list`, and `task_update` as the only writable progress source. Native `todowrite` is disabled for normal agents; ignore any package tool mapping that recommends it. Do not duplicate progress into native todos or another writable task source.
-- Keep the execution tree separate from the detailed plan. Create a feature root with a small, reasonably scaled set of milestone children, normally discovery/design, implementation workstreams, verification, and browser handoff.
-- Treat the tree as a live operational projection, not a one-to-one copy of plan steps. Add fine-grained tasks only for current or near-term work when they improve observability, dependency tracking, or delegation.
-- Normally use two or three useful hierarchy levels. Keep statuses, active descriptions, owners, priorities, and real blockers current; split, reparent, add, or remove work as implementation reality changes.
-- Store the detailed plan path in the feature root metadata when the task tools support it.
+## Planning And Execution
 
-## Delegation And Integration
+- Save a durable plan under `docs/superpowers/plans/` for substantive multi-step work. Organize it into independently useful, browser-testable or releasable vertical slices, not two-to-five-minute micro-tasks or reviewer gates.
+- Use `task_create`, `task_get`, `task_list`, and `task_update` as the only writable progress source. Keep a small dynamic execution tree separate from the detailed plan. Native `todowrite` remains disabled.
+- The main model owns architecture, integration, the goal contract, and stopping decisions. Delegate bounded research, isolated implementation, or focused verification only when it protects context or shortens wall-clock time. Never overlap writable scope.
+- Give subagents accepted decisions, narrow scope, relevant paths, expected output, and verification responsibility. Answer routine questions yourself. Inspect returned changes and evidence before integration.
 
-- The main model owns architecture, integration, the durable plan, and the execution tree.
-- Delegate bounded research, isolated implementation, or focused verification when it usefully protects main-session context or reduces wall-clock time. Do not delegate merely to create process.
-- Choose inline work or delegation internally for each task. Never ask the user to select an execution mode.
-- Give each subagent a narrow brief, expected output, owned files where applicable, and verification responsibility. Do not assign overlapping edits in parallel.
-- Represent delegated work in the same execution tree. The main model must inspect integrated changes and verification evidence independently.
-- Do not dispatch automatic specification, quality, security, final-review, or other review swarms.
+## Review Budget
 
-## Unexpected Decisions
+- Review once at each independently releasable or browser-testable vertical-slice boundary, not after every task.
+- Every reviewer prompt MUST require the reviewer to invoke `scope-bounded-review` in its own context. Skills loaded by the parent do not transfer automatically. If the skill was installed during the current session and is unavailable until restart, the reviewer must read `~/.config/opencode/skills/scope-bounded-review/SKILL.md` directly and follow it; do not review without one of these two loading paths.
+- A blocker must cite a violated `AC-N` acceptance criterion or `INV-N` established repository invariant, concrete evidence, a realistic supported failure, and the minimal required resolution.
+- Consolidate valid blockers into one fix wave, then run one scoped re-review. Do not start a third review round. Return any residual blocker, new load-bearing finding, or proposed assumption expansion to the user for a decision.
+- Defer unsupported concurrency, future scale, speculative hardening, optional polish, and risks excluded by approved assumptions. Do not dispatch automatic specification, quality, security, or final-review swarms.
 
-- Continue autonomously while execution follows the accepted request or design. Routine engineering, research, and work-method choices do not require approval.
-- The main model answers routine subagent questions from the accepted design, repository evidence, plan, and safe reversible judgment. Subagents do not interview the user through the main model.
-- Ask the user only when an unexpected discovery creates a material objective, output, product, security, compatibility, data-loss, cost, or scope decision that cannot be inferred safely. If multiple independent material decisions are known, batch them into one concise interruption.
-- Do not escalate a question merely because a skill, plan, or subagent asks it. If the choice is routine, reversible, or recoverable from existing evidence, decide and continue.
-- Make the interruption and blocker visible in the execution tree. Replan only when the accepted design or dependency structure changes materially.
+## Verification And Provenance
 
-## Verification
+- Run the narrowest meaningful existing tests, type checks, lint checks, builds, and inspections covering the changed dependency surface. Broaden only for concrete shared-dependency risk.
+- Add automated regression tests for meaningful behavior and reproduced defects. Do not add tests for prose, static configuration, trivial wiring, visual appearance, or behavior assigned to user browser testing.
+- Never claim a check passed unless its evidence was inspected. Do not rerun unchanged evidence merely to satisfy process; state when prior evidence still applies.
+- When runnable artifacts change, establish provenance at the first handoff-capable state and verify it freshly before saying `ready`: expected revision/worktree, running UI/server/backend identity, migration/schema state, relevant health or API result, and representative data prerequisites. Limit this to components in the approved slice. Healthy containers alone do not prove current code is running.
 
-- Verify proportionally with the narrowest meaningful existing tests, type checks, lint checks, and builds that cover the changed dependency surface. Broaden checks when risk or shared dependencies justify it.
-- Add regression tests for meaningful behavior and reproduced defects. Do not add tests for prose, static configuration, trivial wiring, visual appearance, or unrelated coverage expansion. These exclusions are standing authorization to omit new tests; do not ask the user for a TDD exception.
-- Never claim a check passed unless it was actually run and its result inspected.
+## Workspace And Git
 
-## Context Compression
-
-- DCP is enabled in primary and subagent sessions. Use its `compress` tool proactively after an investigation, implementation phase, verification pass, or other conversation range is genuinely closed. Do not wait for the context limit when stale tool output or completed reasoning is already safe to summarize.
-- Treat every tool-heavy phase boundary as a compression checkpoint. Before starting the next phase, explicitly assess whether the closed range can become summary-only; call `compress` when it can instead of merely noting that compression would help.
-- Prefer compressing a coherent closed range containing long tool results and the conclusions derived from them. Preserve exact decisions, file paths, signatures, constraints, verification evidence, unresolved work, report contracts, and user intent in the summary.
-- Do not compress raw content that is still needed for an imminent edit, an active debugging hypothesis, an unresolved error, or a decision still in progress. Re-evaluate it as soon as that phase closes.
-- Long-running subagents manage their own context and compress closed internal phases when needed. Short, tightly scoped subagents need not manufacture a compression call. Subagents still return concise reports, and the main model separately decides when integrated subagent results and surrounding orchestration traffic can be compressed.
-- A successful model-invoked compression produces DCP's persistent detailed chat notification. Do not imitate that notification with ordinary prose; visibility must come from the actual `compress` call.
-- Native OpenCode compaction remains the final context-limit fallback, not a substitute for selective phase-based DCP compression.
+- Use a Git worktree by default for substantive feature work in a Git repository without asking routine consent. Work in place for non-repositories, global configuration, explicit user direction, or required environments that isolation would break; state the exception.
+- Do not create commits, push, publish, deploy, merge, open pull requests, release, discard, or clean up branches/worktrees unless the user explicitly requests that action.
+- Preserve unrelated worktree changes and never revert work you did not create.
 
 ## Browser Handoff
 
-- Do not launch browser automation, browsers, development servers, Playwright, Cypress, or visual-review agents by default.
-- Do not offer a visual companion or browser mode unless the user asks for one or a material visual decision genuinely cannot be resolved through repository evidence and text.
-- For user-facing work, complete automated verification and hand browser review to the user with the exact launch command, URL, required test state, a concise checklist, changed-file summary, and known gaps.
-- Keep an isolated worktree available for feedback when one was used; integration remains an explicit later decision.
+- Visual and browser testing belong to the user unless the user explicitly asks the agent to perform it. Saying testing is manual, that the user will test, or that browser scenarios should be prepared does not authorize agent-run browser testing.
+- Do not launch browsers, Playwright, Cypress, visual agents, browser automation, or a browser preflight by default.
+- Handoff with the exact launch command, URL, required state, concise browser checklist, changed-file summary, automated evidence, known gaps, and deferred risks. Clearly label browser behavior as pending user verification.
+
+## Skill Precedence And Maintenance
+
+- `focused-delivery` governs substantive orchestration. `scope-bounded-review` governs reviewer output. Invoke other skills only for useful techniques that fit this contract.
+- This policy and those personal skills replace package defaults requiring serial interviews, section approvals, second spec approval, execution-mode selection, mandatory commits, micro-task reviews, five-round fix loops, full-suite completion gates, browser preflights, or automatic integration menus.
+- Superpowers is pinned to v6.2.0. Its high-risk skill entry points are deterministically replaced from tracked override sources after dependency installation. An intentional package update must reassess those overrides before changing the pin.
+
+## Context Compression
+
+- Use DCP `compress` after a tool-heavy investigation, implementation phase, verification pass, or other coherent range is closed. Preserve exact decisions, paths, interfaces, constraints, evidence, unresolved work, report contracts, and user intent.
+- Do not compress raw context needed for an imminent edit, active debugging hypothesis, unresolved error, or pending decision. Native compaction remains the final fallback.
 
 ## Disabled Automation
 
-- Do not reactivate OMO, background-agent plugins, Codegraph, native-todo syncing, automatic browser automation, or automatic review swarms.
+Do not reactivate OMO, background-agent plugins, Codegraph, native-todo syncing, automatic browser automation, or automatic review swarms.

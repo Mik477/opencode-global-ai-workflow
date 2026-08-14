@@ -161,10 +161,12 @@ if (-not [string]::Equals($sourceRoot, $destinationPath, [System.StringCompariso
             "dcp.jsonc",
             "docs",
             "opencode.jsonc",
+            "overrides",
             "package-lock.json",
             "package.json",
             "plugins",
             "scripts",
+            "skills",
             "tui.json",
             "windows"
         )

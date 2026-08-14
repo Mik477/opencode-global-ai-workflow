@@ -8,7 +8,7 @@ It deliberately does **not** vendor OpenCode, Superpowers, DCP, authentication p
 
 The workflow combines:
 
-- an adaptive, autonomous Superpowers policy;
+- a focused-delivery policy with one combined approval and bounded reviews;
 - a persistent hierarchical execution tree instead of native flat todos;
 - a CLI sidebar and `/progress` task browser;
 - isolated context/session diagnostics;
@@ -29,6 +29,8 @@ The workflow combines:
 | `dcp.jsonc` | DCP compression, protection, subagent, and notification settings |
 | `tui.json` | CLI TUI plugin registration |
 | `command/` | `/autofeature`, `/context`, `/session-search`, and `/session-read` |
+| `skills/` | Focused delivery orchestration and scope-bounded review contracts |
+| `overrides/superpowers-v6.2.0/` | Tracked focused replacements for nine high-risk package skills |
 | `plugins/session-progress/` | Persistent tasks, hierarchy, sidebar, `/progress`, and tests |
 | `plugins/diagnostics/` | Isolated context/session telemetry tools and tests |
 | `plugins/terminal-title-clean/` | Dynamic terminal-title cleanup |
@@ -40,11 +42,13 @@ The workflow combines:
 
 ## How The Workflow Operates
 
-### Adaptive Autonomy
+### Focused Delivery
 
-Normal requests automatically use the workflow; `/autofeature` is optional. The agent inspects the project first, batches foreseeable material questions, and infers routine engineering and research choices. A clear request is sufficient authorization. If a material design decision exists, one cohesive approval is the only routine gate.
+Normal substantive requests automatically use the workflow; `/autofeature` is optional. The agent inspects the project first, batches foreseeable material questions, and infers routine engineering and research choices. It then presents an at-most-ten-line goal contract, cohesive design, and comprehensive plan for one combined approval.
 
-After that, the agent plans and implements in the same session. It does not ask for method approval, written-spec review, plan review, execution-mode selection, routine task approval, or permission to continue. Only non-inferable material product, security, compatibility, data-loss, cost, output, or scope decisions interrupt execution.
+After approval, implementation proceeds autonomously in independently useful vertical slices. Each slice has at most one scope-bounded review, one consolidated fix wave, and one re-review. There are no section approvals, second spec/plan gates, execution-mode questions, review swarms, or agent-owned browser tests. A residual blocker or material decision outside the contract returns to the user.
+
+Superpowers remains pinned to v6.2.0. `npm install` and `npm ci` deterministically apply the nine tracked focused skill overrides, while validation rejects missing or drifted replacements.
 
 ### Models
 
@@ -143,7 +147,7 @@ Because the repository is private, authenticate Git first with Git Credential Ma
 The installer:
 
 1. verifies `node`, `npm`, `opencode`, and Windows Terminal;
-2. enforces the supported Node/npm versions, stages external destinations, and runs `npm ci --engine-strict` plus validation before moving them into place;
+2. enforces the supported Node/npm versions, stages external destinations, and runs `npm ci --engine-strict`, including focused Superpowers overrides, plus validation before moving them into place;
 3. backs up the current-host PowerShell profile and Windows Terminal settings;
 4. adds an idempotent managed `oai` block and merges only the portable `OpenCode` Terminal profile;
 5. validates the resulting shell integration; and
@@ -190,7 +194,7 @@ opencode debug agent explore
 opencode debug skill
 ```
 
-Validation confirms that normal agents expose compression and task tools, hide native todos and diagnostics, the diagnostics agent has only its three intended tools, required Superpowers skills resolve from this installation, and custom plugins load. It sets an isolated temporary `XDG_CONFIG_HOME`, disables project configuration, and points OpenCode directly at the candidate root so a working local global config cannot mask missing files. It does not authenticate providers or make a paid model request.
+Validation confirms that normal agents expose compression and task tools, hide native todos and diagnostics, the diagnostics agent has only its three intended tools, both personal skills resolve from tracked `skills/`, all nine focused Superpowers overrides match, required package skills resolve from this installation, and custom plugins load. It sets an isolated temporary `XDG_CONFIG_HOME`, disables project configuration, and points OpenCode directly at the candidate root so a working local global config cannot mask missing files. It does not authenticate providers or make a paid model request.
 
 ## First Run
 
@@ -200,7 +204,7 @@ OpenCode loads configuration only at process startup. Fully stop every OpenCode 
 oai C:\path\to\project
 ```
 
-For a quick behavior check, give the agent a small multi-step implementation request. Confirm that it uses the hierarchical `task_*` tools, does not create a native Todo card, and proceeds without unnecessary method approvals.
+For a quick behavior check, give the agent a substantive multi-step implementation request. Confirm that it loads `focused-delivery`, presents one combined contract/design/plan approval, uses the hierarchical `task_*` tools, does not create a native Todo card, and does not add further routine approval or review gates.
 
 ## Updating
 
@@ -213,7 +217,7 @@ npm ci
 .\scripts\validate.ps1
 ```
 
-Package versions are intentionally pinned. Update them deliberately, regenerate `package-lock.json`, run all checks, and inspect `opencode debug config` before restarting.
+`npm ci` reapplies the tracked focused Superpowers overrides through `postinstall`. Package versions are intentionally pinned. Update them deliberately, reassess the versioned override sources, regenerate `package-lock.json`, run all checks, and inspect `opencode debug config` before restarting.
 
 ### Upstream Dependency Advisories
 

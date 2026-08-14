@@ -14,6 +14,9 @@ $requiredPaths = @(
     "dcp.jsonc",
     "tui.json",
     "SUPERPOWERS-WORKFLOW.md",
+    "skills\focused-delivery\SKILL.md",
+    "skills\scope-bounded-review\SKILL.md",
+    "scripts\apply-superpowers-overrides.mjs",
     "scripts\terminal-settings.mjs",
     "plugins\session-progress\server.ts",
     "plugins\diagnostics\server.ts",
@@ -25,6 +28,11 @@ foreach ($relativePath in $requiredPaths) {
     if (-not (Test-Path -LiteralPath $fullPath)) {
         throw "Missing required workflow file: $fullPath"
     }
+}
+
+$overrideOutput = (& node (Join-Path $root "scripts\apply-superpowers-overrides.mjs") --check 2>&1 | Out-String)
+if ($LASTEXITCODE -ne 0) {
+    throw "Focused Superpowers override validation failed.`n$overrideOutput"
 }
 
 function Invoke-OpenCodeDebug {
@@ -161,9 +169,12 @@ try {
             "brainstorming",
             "dispatching-parallel-agents",
             "executing-plans",
+            "finishing-a-development-branch",
             "requesting-code-review",
+            "subagent-driven-development",
             "systematic-debugging",
             "test-driven-development",
+            "using-git-worktrees",
             "using-superpowers",
             "verification-before-completion",
             "writing-plans"
@@ -180,6 +191,20 @@ try {
             $skillLocation = [string]($skill | Select-Object -ExpandProperty location)
             if (-not (Test-PathWithin -Candidate $skillLocation -Parent $skillRoot)) {
                 throw "Superpowers skill '$skillName' came from outside the isolated workflow: $skillLocation"
+            }
+        }
+        $customSkillRoot = Join-Path $root "skills"
+        foreach ($skillName in @("focused-delivery", "scope-bounded-review")) {
+            $skill = $skills |
+                ForEach-Object { $_ } |
+                Where-Object { $_.name -eq $skillName } |
+                Select-Object -First 1
+            if (-not $skill) {
+                throw "Custom skill '$skillName' is unavailable."
+            }
+            $skillLocation = [string]($skill | Select-Object -ExpandProperty location)
+            if (-not (Test-PathWithin -Candidate $skillLocation -Parent $customSkillRoot)) {
+                throw "Custom skill '$skillName' came from outside the isolated workflow: $skillLocation"
             }
         }
     } finally {

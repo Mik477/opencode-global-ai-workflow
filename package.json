@@ -4,6 +4,9 @@
   "private": true,
   "description": "Portable OpenCode workflow, task tree, diagnostics, compression, and Windows terminal integration.",
   "scripts": {
+    "postinstall": "npm run apply:superpowers-overrides",
+    "apply:superpowers-overrides": "node ./scripts/apply-superpowers-overrides.mjs",
+    "check:superpowers-overrides": "node ./scripts/apply-superpowers-overrides.mjs --check",
     "test:tasks": "bun test ./plugins/session-progress/server-paths.test.ts ./plugins/session-progress/task-store.test.ts ./plugins/session-progress/tui.test.ts",
     "typecheck:tasks": "tsc -p plugins/session-progress/tsconfig.json",
     "test:diagnostics": "bun test ./plugins/diagnostics/diagnostics-core.test.ts ./plugins/diagnostics/server-basic.test.ts ./plugins/diagnostics/server.test.ts",

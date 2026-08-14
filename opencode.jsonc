@@ -11,6 +11,11 @@
   "instructions": [
     "./SUPERPOWERS-WORKFLOW.md"
   ],
+  "skills": {
+    "paths": [
+      "./skills"
+    ]
+  },
   "agent": {
     "title": {
       "model": "openai/gpt-5.6-terra",
