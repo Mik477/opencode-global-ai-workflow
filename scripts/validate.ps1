@@ -15,6 +15,7 @@ $requiredPaths = @(
     "tui.json",
     "SUPERPOWERS-WORKFLOW.md",
     "skills\focused-delivery\SKILL.md",
+    "skills\bootstrapping-project-knowledge\SKILL.md",
     "skills\scope-bounded-review\SKILL.md",
     "scripts\apply-superpowers-overrides.mjs",
     "scripts\terminal-settings.mjs",
@@ -194,7 +195,11 @@ try {
             }
         }
         $customSkillRoot = Join-Path $root "skills"
-        foreach ($skillName in @("focused-delivery", "scope-bounded-review")) {
+        foreach ($skillName in @(
+            "bootstrapping-project-knowledge",
+            "focused-delivery",
+            "scope-bounded-review"
+        )) {
             $skill = $skills |
                 ForEach-Object { $_ } |
                 Where-Object { $_.name -eq $skillName } |

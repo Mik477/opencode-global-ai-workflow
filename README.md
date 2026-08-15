@@ -9,6 +9,7 @@ It deliberately does **not** vendor OpenCode, Superpowers, DCP, authentication p
 The workflow combines:
 
 - a focused-delivery policy with one combined approval and bounded reviews;
+- an adaptive project-knowledge bootstrap skill with evidence, lifecycle, retrieval, and security guidance;
 - a persistent hierarchical execution tree instead of native flat todos;
 - a CLI sidebar and `/progress` task browser;
 - isolated context/session diagnostics;
@@ -29,7 +30,7 @@ The workflow combines:
 | `dcp.jsonc` | DCP compression, protection, subagent, and notification settings |
 | `tui.json` | CLI TUI plugin registration |
 | `command/` | `/autofeature`, `/context`, `/session-search`, and `/session-read` |
-| `skills/` | Focused delivery orchestration and scope-bounded review contracts |
+| `skills/` | Focused delivery, scope-bounded review, and adaptive project-knowledge bootstrap skills |
 | `overrides/superpowers-v6.2.0/` | Tracked focused replacements for nine high-risk package skills |
 | `plugins/session-progress/` | Persistent tasks, hierarchy, sidebar, `/progress`, and tests |
 | `plugins/diagnostics/` | Isolated context/session telemetry tools and tests |
@@ -194,7 +195,11 @@ opencode debug agent explore
 opencode debug skill
 ```
 
-Validation confirms that normal agents expose compression and task tools, hide native todos and diagnostics, the diagnostics agent has only its three intended tools, both personal skills resolve from tracked `skills/`, all nine focused Superpowers overrides match, required package skills resolve from this installation, and custom plugins load. It sets an isolated temporary `XDG_CONFIG_HOME`, disables project configuration, and points OpenCode directly at the candidate root so a working local global config cannot mask missing files. It does not authenticate providers or make a paid model request.
+Validation confirms that normal agents expose compression and task tools, hide native todos and diagnostics, the diagnostics agent has only its three intended tools, all tracked custom skills resolve from `skills/`, all nine focused Superpowers overrides match, required package skills resolve from this installation, and custom plugins load. It sets an isolated temporary `XDG_CONFIG_HOME`, disables project configuration, and points OpenCode directly at the candidate root so a working local global config cannot mask missing files. It does not authenticate providers or make a paid model request.
+
+### Project Knowledge Bootstrap
+
+`bootstrapping-project-knowledge` helps agents choose the smallest justified repository knowledge system. It starts with a thin routing/ADR layer, adds validated typed records only when provenance or lifecycle failures require them, and adds lexical retrieval, impact routing, research promotion, embeddings, or graphs only behind measured upgrade gates. The skill is Agent Skills-compatible and keeps client-specific loading behavior in thin adapters.
 
 ## First Run
 

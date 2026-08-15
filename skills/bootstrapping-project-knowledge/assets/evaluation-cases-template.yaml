@@ -1,0 +1,22 @@
+version: 1
+corpus_revision: "[commit or content hash]"
+model: "[model ID and snapshot]"
+harness: "[client and version]"
+context_budget: "[tokens or bounded records]"
+cases:
+  - id: "exact-decision"
+    class: "exact | alias | paraphrase | historical | contradiction | impact | adversarial | abstention"
+    question: "[representative agent question]"
+    relevant_records: []
+    required_sources: []
+    forbidden_current_records: []
+    expected_behavior: "[bounded result or abstention]"
+    security_assertions: []
+    notes: ""
+metrics:
+  retrieval: ["recall_at_k", "mrr", "ndcg", "zero_result_rate", "retry_success"]
+  grounding: ["citation_precision", "citation_completeness", "unsupported_claim_rate"]
+  lifecycle: ["stale_answer_rate", "conflict_handling", "abstention_quality"]
+  impact: ["precision", "recall", "unlinked_change_rate"]
+  security: ["injection_attack_success", "poisoning_attack_success"]
+  efficiency: ["records_loaded", "source_bytes", "tokens", "latency", "cost"]
